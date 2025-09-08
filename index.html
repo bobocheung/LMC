@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LMC 手繪風模擬器</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="paper-header">
+		<h1>🧮 Little Man Computer</h1>
+		<p class="subtitle">手繪風格 · 學習馮·諾依曼架構與組合語言</p>
+	</header>
+
+	<main class="layout classic">
+		<section class="panel code-panel">
+			<div class="panel-title">組合語言程式</div>
+			<div class="code-wrap">
+				<textarea id="editor" spellcheck="false" aria-label="LMC 程式編輯器"></textarea>
+				<div class="listing" aria-label="彙編清單">
+					<div class="listing-title">彙編清單（點擊行設置/取消斷點）</div>
+					<ol id="listing"></ol>
+					<div class="symbols">
+						<div class="symbols-title">符號表</div>
+						<table id="symbols-table"></table>
+					</div>
+				</div>
+			</div>
+			<div class="controls">
+				<button id="btn-assemble" class="btn">彙編</button>
+				<button id="btn-load" class="btn">載入</button>
+				<button id="btn-step" class="btn">單步</button>
+				<button id="btn-run" class="btn">執行</button>
+				<button id="btn-reset" class="btn">復位</button>
+				<label class="speed">速度
+					<input id="speed" type="range" min="50" max="800" step="10" value="300">
+				</label>
+			</div>
+		</section>
+
+		<section class="panel side-panel output-panel">
+			<div class="panel-title">OUTPUT</div>
+			<ul id="output-list" aria-label="輸出佇列"></ul>
+		</section>
+
+		<section class="panel side-panel cpu-panel">
+			<div class="panel-title">CPU</div>
+			<div class="registers cpu-block">
+				<div>PC: <span id="pc">000</span></div>
+				<div>IR: <span id="ir">000</span></div>
+				<div>ADR: <span id="adr">00</span></div>
+				<div>ACC: <span id="acc">000</span></div>
+				<div>狀態: <span id="status">空閒</span></div>
+			</div>
+			<div class="alu-box">ARITHMETIC UNIT</div>
+		</section>
+
+		<section class="panel side-panel input-panel">
+			<div class="panel-title">INPUT</div>
+			<input id="inbox-input" type="number" placeholder="輸入 0-999 的數字">
+			<button id="btn-inbox-add" class="btn small">加入</button>
+			<button id="btn-inbox-clear" class="btn small">清空</button>
+			<ul id="inbox-list" aria-label="輸入佇列"></ul>
+		</section>
+
+		<section class="panel memory-panel">
+			<div class="panel-title">RAM (0-99)（點格編輯數值）</div>
+			<div id="memory" class="memory-grid" role="grid" aria-label="記憶體格"></div>
+		</section>
+	</main>
+
+	<footer class="paper-footer">
+		<div class="examples">
+			<label>範例程式：</label>
+			<select id="examples"></select>
+			<button id="btn-load-example" class="btn small">載入範例</button>
+		</div>
+		<div class="footer-actions">
+			<button id="btn-save" class="btn small">儲存程式</button>
+			<button id="btn-load-saved" class="btn small">讀取儲存</button>
+			<button id="btn-export" class="btn small">匯出檔案</button>
+			<button id="btn-import" class="btn small">匯入檔案</button>
+			<button id="btn-help" class="btn small">說明 / Help</button>
+			<a class="link" href="https://en.wikipedia.org/wiki/Little_man_computer" target="_blank" rel="noopener">了解 LMC</a>
+		</div>
+	</footer>
+
+	<!-- Help Modal -->
+	<div id="help-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="help-title">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 id="help-title">LMC 指令表與新手教學</h2>
+				<button id="help-close" class="btn small">關閉</button>
+			</div>
+			<div class="modal-body">
+				<div id="help-body"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="app.js"></script>
+</body>
+</html>
